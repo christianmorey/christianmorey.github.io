@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christian, the Free Portfolio</title>
+<meta name="description" content="Christian Morey — operations manager and data analytics practitioner in Northeast Ohio; founder of Brick Lane. Portfolio in encyclopedia form.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* ============================================================
+   TOKENS — light is the base; dark redefines tokens only.
+   ============================================================ */
+:root{
+  --paper:#FBFAF8;
+  --surface:#F2EFE9;
+  --surface-2:#EAE6DD;
+  --ink:#1B1917;
+  --ink-muted:#6E675C;
+  --ink-faint:#918A7D;
+  --rule:#DAD4C8;
+  --rule-soft:#E7E2D8;
+  --link:#14566B;
+  --link-visited:#5B4A72;
+  --accent:#9B3B28;
+  --accent-soft:#F0E2DD;
+  --shadow:0 1px 2px rgba(27,25,23,.06);
+
+  --f-display:"Spectral", "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --f-body:"Source Sans 3", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --measure:44rem;
+  --rail:15rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#1A1815;
+    --surface:#232019;
+    --surface-2:#2C2820;
+    --ink:#ECE7DE;
+    --ink-muted:#A79F91;
+    --ink-faint:#847C6E;
+    --rule:#3B362C;
+    --rule-soft:#2E2A22;
+    --link:#7CBED0;
+    --link-visited:#B3A2CC;
+    --accent:#D87C63;
+    --accent-soft:#3A261F;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#1A1815;
+  --surface:#232019;
+  --surface-2:#2C2820;
+  --ink:#ECE7DE;
+  --ink-muted:#A79F91;
+  --ink-faint:#847C6E;
+  --rule:#3B362C;
+  --rule-soft:#2E2A22;
+  --link:#7CBED0;
+  --link-visited:#B3A2CC;
+  --accent:#D87C63;
+  --accent-soft:#3A261F;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:16px;
+  line-height:1.62;
+}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{
+  outline:2px solid var(--accent);outline-offset:2px;border-radius:2px;
+}
+::selection{background:var(--accent-soft);color:var(--ink)}
+
+/* ============================================================
+   CHROME
+   ============================================================ */
+.chrome{
+  position:sticky;top:0;z-index:60;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.chrome-in{
+  max-width:82rem;margin:0 auto;padding:.55rem 1.25rem;
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+}
+.wordmark{
+  font-family:var(--f-display);font-size:1.32rem;font-weight:600;
+  letter-spacing:-.015em;color:var(--ink);white-space:nowrap;
+}
+.wordmark .tilde{color:var(--accent)}
+.search{
+  flex:1 1 16rem;max-width:26rem;position:relative;
+}
+.search input{
+  width:100%;font:inherit;font-size:.9rem;
+  padding:.4rem .7rem .4rem 2rem;
+  background:var(--paper);color:var(--ink);
+  border:1px solid var(--rule);border-radius:3px;
+}
+.search input::placeholder{color:var(--ink-faint)}
+.search svg{position:absolute;left:.55rem;top:50%;transform:translateY(-50%);opacity:.5}
+.chrome-links{
+  margin-left:auto;display:flex;gap:1rem;font-size:.85rem;flex-wrap:wrap;
+}
+.chrome-links button{
+  font:inherit;font-size:.85rem;background:none;border:none;padding:0;
+  color:var(--link);cursor:pointer;
+}
+.chrome-links button:hover{text-decoration:underline}
+
+/* ============================================================
+   SHELL
+   ============================================================ */
+.shell{
+  max-width:82rem;margin:0 auto;padding:0 1.25rem 5rem;
+  display:grid;grid-template-columns:var(--rail) minmax(0,1fr);gap:2.5rem;
+  align-items:start;
+}
+@media (max-width:60rem){
+  .shell{grid-template-columns:minmax(0,1fr);gap:0}
+}
+
+/* --- table of contents rail --- */
+.toc{position:sticky;top:4.2rem;padding-top:2.6rem;font-size:.875rem}
+.toc h2{
+  font-family:var(--f-body);font-size:.78rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.09em;color:var(--ink-muted);
+  margin:0 0 .5rem;padding-bottom:.45rem;border-bottom:1px solid var(--rule);
+}
+.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.12rem}
+.toc li ol{margin-left:.9rem;margin-top:.12rem}
+.toc a{
+  display:block;padding:.16rem .5rem;border-left:2px solid transparent;
+  color:var(--link);line-height:1.35;
+}
+.toc a:hover{background:var(--surface);text-decoration:none}
+.toc a.active{
+  border-left-color:var(--accent);color:var(--ink);font-weight:600;
+  background:var(--surface);
+}
+.toc-mobile{display:none}
+@media (max-width:60rem){
+  .toc{display:none}
+  .toc-mobile{display:block;margin:1.25rem 0 0}
+  .toc-mobile summary{
+    cursor:pointer;font-size:.8rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.09em;color:var(--ink-muted);padding:.6rem 0;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .toc-mobile .toc{display:block;position:static;padding-top:.8rem}
+  .toc-mobile .toc h2{display:none}
+}
+
+/* ============================================================
+   ARTICLE
+   ============================================================ */
+.article{padding-top:2.4rem;min-width:0}
+.title{
+  font-family:var(--f-display);font-weight:500;
+  font-size:clamp(2.1rem,1.4rem + 2.4vw,3rem);
+  line-height:1.08;letter-spacing:-.02em;margin:0;text-wrap:balance;
+}
+.tagline{
+  font-size:.9rem;color:var(--ink-muted);margin:.55rem 0 0;
+  padding-bottom:.7rem;border-bottom:1px solid var(--rule);
+}
+.hatnote{
+  font-style:italic;color:var(--ink-muted);font-size:.92rem;margin:.85rem 0 0;
+}
+
+/* --- stat bar --- */
+.statbar{
+  margin:1.3rem 0 1.9rem;border:1px solid var(--rule);border-radius:3px;
+  background:var(--surface);display:flex;flex-wrap:wrap;align-items:stretch;
+}
+.stat{
+  flex:1 1 7rem;padding:.7rem .9rem;text-align:center;
+  border-right:1px solid var(--rule-soft);
+}
+.stat:last-of-type{border-right:none}
+.stat b{
+  display:block;font-family:var(--f-mono);font-weight:600;font-size:1.15rem;
+  font-variant-numeric:tabular-nums;color:var(--ink);letter-spacing:-.02em;
+}
+.stat span{
+  display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink-muted);margin-top:.15rem;
+}
+.statbar .stat-cta{
+  flex:0 0 auto;display:flex;align-items:center;gap:.5rem;padding:.6rem .8rem;
+  border-right:none;
+}
+.pill{
+  font-family:var(--f-mono);font-size:.72rem;padding:.32rem .6rem;border-radius:99px;
+  background:var(--ink);color:var(--paper);white-space:nowrap;
+}
+.pill.brick{background:var(--accent);color:#fff}
+
+/* --- body text --- */
+.article p, .article ul, .article ol.notes{max-width:var(--measure)}
+.article p{margin:0 0 .95rem}
+.lead p:first-of-type{font-size:1.02rem}
+h2.sec{
+  font-family:var(--f-display);font-weight:500;font-size:1.62rem;
+  letter-spacing:-.015em;margin:2.4rem 0 .85rem;padding-bottom:.3rem;
+  border-bottom:1px solid var(--rule);scroll-margin-top:5rem;text-wrap:balance;
+}
+h3.sub{
+  font-family:var(--f-body);font-weight:700;font-size:1.06rem;
+  margin:1.7rem 0 .5rem;scroll-margin-top:5rem;
+}
+h4.subsub{
+  font-family:var(--f-body);font-weight:600;font-size:.95rem;
+  color:var(--ink-muted);margin:1.1rem 0 .4rem;
+}
+.article ul{padding-left:1.15rem;margin:0 0 .95rem}
+.article li{margin-bottom:.25rem}
+sup.ref{font-size:.7em;line-height:0}
+sup.ref a{font-family:var(--f-mono)}
+
+/* --- placeholders --- */
+.todo{
+  color:var(--accent);border-bottom:1px dotted var(--accent);
+  font-style:italic;cursor:help;
+}
+body.todo-lit .todo{
+  background:var(--accent-soft);border-radius:2px;
+  padding:0 .15em;border-bottom:1px solid var(--accent);
+}
+
+/* --- infobox --- */
+.infobox{
+  float:right;width:20.5rem;max-width:100%;margin:.35rem 0 1.2rem 1.6rem;
+  border:1px solid var(--rule);background:var(--surface);border-radius:3px;
+  font-size:.855rem;box-shadow:var(--shadow);overflow:hidden;
+}
+.infobox-head{
+  font-family:var(--f-display);font-size:1.06rem;font-weight:600;text-align:center;
+  padding:.55rem .8rem;background:var(--surface-2);border-bottom:1px solid var(--rule);
+}
+.portrait{
+  margin:.8rem .8rem .35rem;aspect-ratio:4/5;border:1px solid var(--rule);
+  background:
+    repeating-linear-gradient(135deg, var(--surface-2) 0 10px, transparent 10px 20px),
+    var(--surface);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.4rem;color:var(--ink-faint);text-align:center;padding:1rem;
+}
+.portrait .glyph{font-family:var(--f-display);font-size:2.4rem;line-height:1;opacity:.55}
+.portrait small{font-size:.75rem;line-height:1.35;max-width:12rem}
+.infobox figcaption{
+  text-align:center;font-size:.79rem;color:var(--ink-muted);
+  padding:0 .8rem .7rem;line-height:1.4;
+}
+.infobox table{width:100%;border-collapse:collapse}
+.infobox th,.infobox td{
+  text-align:left;vertical-align:top;padding:.42rem .8rem;
+  border-top:1px solid var(--rule-soft);
+}
+.infobox th{
+  width:8.2rem;font-weight:700;font-size:.8rem;color:var(--ink);
+}
+.infobox td{color:var(--ink-muted)}
+.infobox td a{color:var(--link)}
+@media (max-width:48rem){
+  .infobox{float:none;width:100%;margin:1.2rem 0}
+}
+
+/* --- thumbnails --- */
+.thumb{
+  float:right;clear:right;width:15.5rem;max-width:100%;
+  margin:.3rem 0 1rem 1.4rem;border:1px solid var(--rule);
+  background:var(--surface);padding:.5rem;border-radius:3px;font-size:.79rem;
+}
+.thumb-art{
+  aspect-ratio:3/2;background:var(--surface-2);border:1px solid var(--rule-soft);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-mono);font-size:.72rem;color:var(--ink-faint);
+  text-align:center;padding:.6rem;line-height:1.5;
+}
+.thumb figcaption{color:var(--ink-muted);padding:.45rem .1rem 0;line-height:1.42}
+.thumb.left{float:left;clear:left;margin:.3rem 1.4rem 1rem 0}
+@media (max-width:48rem){
+  .thumb,.thumb.left{float:none;width:100%;margin:1rem 0}
+}
+
+/* --- project cards --- */
+.proj{border-left:2px solid var(--rule);padding-left:1rem;margin:1.5rem 0}
+.proj h3.sub{margin-top:0}
+.linkrow{
+  display:flex;flex-wrap:wrap;gap:.35rem .5rem;margin:.6rem 0 0;
+  font-family:var(--f-mono);font-size:.78rem;
+}
+.linkrow a,.linkrow span{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.24rem .6rem;border:1px solid var(--rule);border-radius:3px;
+  background:var(--surface);
+}
+.linkrow a:hover{background:var(--surface-2);text-decoration:none;border-color:var(--link)}
+.linkrow span{color:var(--ink-faint);font-style:italic;border-style:dashed}
+.status{
+  display:inline-block;font-family:var(--f-mono);font-size:.7rem;
+  text-transform:uppercase;letter-spacing:.06em;padding:.1rem .45rem;
+  border-radius:2px;background:var(--accent-soft);color:var(--accent);
+  vertical-align:.12em;margin-left:.45rem;
+}
+
+/* --- data table --- */
+.data-wrap{overflow-x:auto;margin:1rem 0 1.3rem;max-width:var(--measure)}
+table.data{
+  border-collapse:collapse;width:100%;min-width:32rem;font-size:.875rem;
+  border:1px solid var(--rule);
+}
+table.data caption{
+  text-align:left;font-size:.79rem;color:var(--ink-muted);
+  padding-bottom:.45rem;font-style:italic;
+}
+table.data th,table.data td{
+  border:1px solid var(--rule-soft);padding:.45rem .65rem;text-align:left;
+  vertical-align:top;
+}
+table.data thead th{
+  background:var(--surface-2);font-size:.75rem;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--ink-muted);font-weight:700;
+}
+table.data td.lvl{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.bar{display:inline-block;width:4.2rem;height:.42rem;background:var(--surface-2);
+  border:1px solid var(--rule);border-radius:99px;overflow:hidden;vertical-align:.02em;margin-right:.45rem}
+.bar i{display:block;height:100%;background:var(--accent)}
+
+/* --- quote / callout --- */
+.callout{
+  max-width:var(--measure);margin:1.2rem 0;padding:.85rem 1rem;
+  border:1px solid var(--rule);border-left:3px solid var(--accent);
+  background:var(--surface);border-radius:0 3px 3px 0;font-size:.9rem;
+}
+.callout b{font-family:var(--f-mono);font-size:.78rem;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--accent);display:block;margin-bottom:.25rem}
+
+/* --- navbox --- */
+.navbox{
+  margin:2.4rem 0 0;border:1px solid var(--rule);border-radius:3px;
+  font-size:.85rem;overflow:hidden;
+}
+.navbox-head{
+  background:var(--surface-2);padding:.5rem .8rem;text-align:center;
+  font-family:var(--f-display);font-weight:600;border-bottom:1px solid var(--rule);
+}
+.navbox table{width:100%;border-collapse:collapse}
+.navbox th{
+  width:11rem;text-align:right;padding:.45rem .8rem;background:var(--surface);
+  font-size:.78rem;font-weight:700;color:var(--ink-muted);
+  border-top:1px solid var(--rule-soft);vertical-align:top;
+}
+.navbox td{
+  padding:.45rem .8rem;border-top:1px solid var(--rule-soft);
+  border-left:1px solid var(--rule-soft);
+}
+@media (max-width:40rem){
+  .navbox th{width:auto;text-align:left;display:block;border-bottom:none;padding-bottom:.1rem}
+  .navbox td{display:block;border-left:none;border-top:none;padding-top:.1rem}
+}
+
+/* --- notes --- */
+ol.notes{font-size:.85rem;color:var(--ink-muted);padding-left:1.3rem}
+ol.notes li{margin-bottom:.35rem;scroll-margin-top:5rem}
+ol.notes li:target{background:var(--accent-soft);border-radius:2px}
+
+.disclaimer{
+  margin-top:2.2rem;padding-top:1rem;border-top:1px solid var(--rule);
+  font-size:.79rem;color:var(--ink-faint);max-width:var(--measure);
+}
+
+/* --- search behaviour --- */
+.dimmed{opacity:.22}
+mark.hit{background:var(--accent-soft);color:var(--ink);border-radius:2px;padding:0 .1em}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<header class="chrome">
+  <div class="chrome-in">
+    <span class="wordmark">Christian<span class="tilde">.</span></span>
+    <div class="search">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <circle cx="7" cy="7" r="4.5"></circle><path d="M10.5 10.5L14 14"></path>
+      </svg>
+      <input id="q" type="search" placeholder="Search this page" aria-label="Search this page" autocomplete="off">
+    </div>
+    <nav class="chrome-links" aria-label="Quick links">
+      <a href="#external-links">Résumé</a>
+      <a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub</a>
+      <a href="#brick-lane">Brick Lane</a>
+      <button id="lit" type="button" aria-pressed="true">Placeholders: <b id="litN">on</b></button>
+    </nav>
+  </div>
+</header>
+
+<div class="shell">
+
+  <!-- ======================= TOC RAIL ======================= -->
+  <nav class="toc" id="tocRail" aria-label="Contents">
+    <h2>Contents</h2>
+    <ol id="tocList">
+      <li><a href="#top">(Top)</a></li>
+      <li><a href="#background">Background</a></li>
+      <li><a href="#career">Career</a>
+        <ol>
+          <li><a href="#amazon">Amazon</a></li>
+          <li><a href="#rkl">RKL LLP</a></li>
+          <li><a href="#analytics-in-operations">Analytics in operations</a></li>
+        </ol>
+      </li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#brick-lane">Brick Lane</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#technical-skills">Technical Skills</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#personal-life">Personal Life</a>
+        <ol>
+          <li><a href="#interests">Interests</a></li>
+        </ol>
+      </li>
+      <li><a href="#further-reading">Further Reading</a></li>
+      <li><a href="#external-links">External Links</a></li>
+      <li><a href="#notes">Notes</a></li>
+    </ol>
+  </nav>
+
+  <!-- ======================= ARTICLE ======================= -->
+  <main class="article" id="top">
+
+    <h1 class="title">Christian Morey</h1>
+    <p class="tagline">Inspired by Wikipedia, the free encyclopedia</p>
+    <p class="hatnote">A personal portfolio in the shape of a reference article. For the professional summary in one page, see the <a href="#external-links">résumé</a>.</p>
+
+    <details class="toc-mobile">
+      <summary>Contents</summary>
+      <nav class="toc" aria-label="Contents (mobile)">
+        <ol>
+          <li><a href="#background">Background</a></li>
+          <li><a href="#career">Career</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#brick-lane">Brick Lane</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#technical-skills">Technical Skills</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#personal-life">Personal Life</a></li>
+          <li><a href="#further-reading">Further Reading</a></li>
+          <li><a href="#external-links">External Links</a></li>
+          <li><a href="#notes">Notes</a></li>
+        </ol>
+      </nav>
+    </details>
+
+    <div class="statbar" role="group" aria-label="Portfolio at a glance">
+      <div class="stat"><b>4</b><span>languages</span></div>
+      <div class="stat"><b>18%</b><span>manual hours cut</span></div>
+      <div class="stat"><b>250&ndash;400</b><span>team overseen</span></div>
+      <div class="stat"><b>MS</b><span>in progress</span></div>
+      <div class="stat"><b>2026</b><span>site launched</span></div>
+      <div class="stat stat-cta">
+        <span class="pill brick">Brick Lane</span>
+        <a class="pill" href="#projects">Browse projects &rarr;</a>
+      </div>
+    </div>
+
+    <!-- ---------- LEAD ---------- -->
+    <section class="lead">
+      <figure class="infobox">
+        <div class="infobox-head">Christian Morey</div>
+        <div class="portrait">
+          <span class="glyph">C</span>
+          <small class="todo">Drop a headshot here — replace this block with an &lt;img&gt;</small>
+        </div>
+        <figcaption>Portrait pending;<br><em>Northeast Ohio, 2026</em></figcaption>
+        <table>
+          <tbody>
+            <tr><th>Occupation</th><td>Operations manager; analytics practitioner</td></tr>
+            <tr><th>Based in</th><td>Akron, Ohio (Summit County)</td></tr>
+            <tr><th>Employer</th><td>Amazon &mdash; Operations Manager, Amazon&nbsp;Robotics fulfillment center</td></tr>
+            <tr><th>Previously</th><td>RKL&nbsp;LLP &mdash; Analyst (2023&ndash;2024)</td></tr>
+            <tr><th>Team</th><td>250&ndash;400 associates; 16 leaders</td></tr>
+            <tr><th>Education</th><td>Georgia Institute of Technology (M.S. Analytics, in progress)<br><span class="todo">[Undergraduate institution and degree]</span></td></tr>
+            <tr><th>Known&nbsp;for</th><td>Operations leadership at scale; cost-visibility dashboards; workflow automation; <a href="#brick-lane">Brick Lane</a></td></tr>
+            <tr><th>Languages</th><td>Python, SQL, R, VBA</td></tr>
+            <tr><th>Profiles</th><td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a></td></tr>
+            <tr><th>Site type</th><td>Personal portfolio</td></tr>
+            <tr><th>Written in</th><td>HTML, CSS &amp; JS</td></tr>
+            <tr><th>Launched</th><td>August 2026</td></tr>
+          </tbody>
+        </table>
+      </figure>
+
+      <p><strong>Christian Morey</strong> is an American operations manager and data analytics practitioner based in Northeast Ohio. He is an operations manager at an <a href="https://www.aboutamazon.com/news/operations/amazon-robotics-fulfillment-center" target="_blank" rel="noopener">Amazon Robotics</a> fulfillment center, where he directs a floor of 250 to 400 associates alongside four salaried and twelve hourly leaders on a given day, running continuous coverage on twelve-hour shifts.<sup class="ref"><a href="#note-3" id="ref-3">[3]</a></sup></p>
+
+      <p>Morey works in the seam between operations and analytics: the reporting, automation, and decision-support tooling that keeps a floor running. Before Amazon he was an analyst at <a href="https://www.rklcpa.com/" target="_blank" rel="noopener">RKL&nbsp;LLP</a>, where he automated accounting and finance workflows and reduced manual entry hours by 18 percent.<sup class="ref"><a href="#note-1" id="ref-1">[1]</a></sup> In both roles the recurring theme has been the same: replacing hand-assembled spreadsheets with structured, queryable systems, and putting cost metrics in front of decision-makers in real time rather than a week late.</p>
+
+      <p>In 2026 he enrolled in the <a href="https://pe.gatech.edu/degrees/analytics" target="_blank" rel="noopener">Georgia Institute of Technology's Online Master of Science in Analytics</a> (OMSA), beginning with Intro to Computing for Data Analysis. He is also the founder of <a href="#brick-lane">Brick Lane</a>, an AI workflow automation and business intelligence consultancy aimed at ecommerce and logistics companies.</p>
+    </section>
+
+    <!-- ---------- BACKGROUND ---------- -->
+    <h2 class="sec" id="background">Background</h2>
+    <p>Morey was born in <span class="todo">[city, state]</span> and <span class="todo">[raised where — one or two specific details; this is what makes the page read like an article rather than a r&eacute;sum&eacute;]</span>.</p>
+
+    <p>His route into analytics ran through finance and operations rather than through a computer science program. It started with VBA: writing macros to take the repetitive parts out of accounting work, then reaching for Azure and the firm&rsquo;s financial systems to pull data that had previously been re-keyed by hand, and finally building Smartsheet and Power BI dashboards on top of it so the numbers arrived without anyone assembling them.</p>
+
+    <p>That sequence &mdash; a manual process first, the automation second, the dashboard third &mdash; still shapes how he approaches technical work. He tends to arrive at a model only after the collection and the definitions around it are trustworthy, which is a habit formed by watching what happens on an operations floor when they are not.</p>
+
+    <!-- ---------- OPERATIONS CAREER ---------- -->
+    <h2 class="sec" id="career">Career</h2>
+
+    <figure class="thumb">
+      <div class="thumb-art">[ photo or dashboard screenshot ]<br>a cost-visibility view you built,<br>with anything proprietary blurred</div>
+      <figcaption>A cost-metrics view built for floor leadership. <span class="todo">Swap in a real screenshot, or delete this figure.</span></figcaption>
+    </figure>
+
+    <h3 class="sub" id="amazon">Amazon &mdash; Operations Manager</h3>
+    <p>Morey manages operations at an Amazon Robotics fulfillment center in Northeast Ohio. On a given day he is responsible for 250 to 400 associates, four salaried leaders, and twelve hourly leaders, across a schedule of four twelve-hour shifts per week.</p>
+
+    <p>The role is a constraint problem before it is anything else. Labor has to be matched to forecast demand shift by shift; throughput and quality targets have to hold while a robotic floor moves the bottleneck from hour to hour; and when they do not hold, the escalation has to be fast and correctly aimed. Much of the judgment involved is about which number to look at first.</p>
+
+    <p>His analytics work at the site has centered on cost visibility &mdash; building dashboards that surface real-time cost metrics for the leaders making the calls, instead of leaving them in a report read the following week. <span class="todo">[One measurable outcome here would carry the section. Keep it non-proprietary: a percentage, a cycle time, or hours returned to leaders, not internal absolute figures.]</span></p>
+
+    <h3 class="sub" id="rkl">RKL LLP &mdash; Analyst</h3>
+    <p>From December 2023 to May 2024, Morey worked as an analyst at RKL LLP, an accounting and advisory firm, on-site in Exton, Pennsylvania. The work was finance-side and automation-heavy:</p>
+
+    <ul>
+      <li><strong>Workflow automation.</strong> Streamlined accounting and finance processes using Smartsheet, APIs, and system integrations, <strong>reducing manual entry hours by 18 percent</strong> and accelerating the month-end budget reporting cycle.</li>
+      <li><strong>Reporting and forecasting.</strong> Built financial reports, client budgets, and forecasting models in Sage Intacct, Bill.com, and Suralink, producing analysis that supported executive budgeting decisions.</li>
+      <li><strong>Cross-functional delivery.</strong> Partnered with multiple service lines and external clients to develop company-wide financial tracking, contributing to client retention and revenue stability.</li>
+    </ul>
+
+    <h3 class="sub" id="analytics-in-operations">Analytics in operations</h3>
+    <p>Much of Morey&rsquo;s technical work has been internal and unglamorous by design: recurring reports that used to be assembled by hand, reconciliations between systems that were never meant to talk to each other, and the slow migration of institutional knowledge out of individual workbooks and into shared, queryable tables.</p>
+
+    <div class="callout">
+      <b>Working principle</b>
+      A report nobody trusts is worse than no report at all. Get the collection and the definitions right, publish something people will actually open, and only then reach for the model.
+    </div>
+
+    <ul>
+      <li><strong>Dashboards.</strong> Real-time cost and performance views built for people who are mid-shift, not mid-analysis &mdash; which constrains how much a dashboard is allowed to ask of its reader.</li>
+      <li><strong>Workflow automation.</strong> Smartsheet, APIs, and integrations at RKL; VBA and scripted reporting elsewhere. The most direct route to time savings in an environment where spreadsheets are already the lingua franca.</li>
+      <li><strong>SQL and Python.</strong> Queries, joins across incompatible exports, and the cleaning that precedes any of it.</li>
+      <li><strong>Definitions and documentation.</strong> Written metric definitions, so that two people asking the same question get the same number.</li>
+    </ul>
+
+    <!-- ---------- EDUCATION ---------- -->
+    <h2 class="sec" id="education">Education</h2>
+
+    <figure class="thumb">
+      <div class="thumb-art">[ institution mark ]<br>DeSales University<br>Georgia Institute of Technology</div>
+      <figcaption>DeSales University (2024) and Georgia Tech, where Morey began the OMSA program in Fall 2026.</figcaption>
+    </figure>
+
+    <p>Morey holds a <span class="todo">[degree and major]</span> from <a href="https://www.desales.edu/" target="_blank" rel="noopener">DeSales University</a>, awarded in 2024. <span class="todo">[Any coursework, honors, or activities worth naming &mdash; optional.]</span></p>
+
+    <p>In Fall 2026 he began the <strong>Online Master of Science in Analytics</strong> at the Georgia Institute of Technology, a two-year program pursued alongside full-time work. His first term centers on <em>CSE 6040: Intro to Computing for Data Analysis</em>, a Python-based course covering numerical computing, data structures for analysis, and applied algorithms, assessed through autograded notebooks and proctored exams.<sup class="ref"><a href="#note-2" id="ref-2">[2]</a></sup></p>
+
+    <p>He plans to concentrate in <span class="todo">[track &mdash; Analytical Tools, Business Analytics, or Computational Data Analytics]</span>, with the longer-term goal of moving from operations leadership into a full-time analytics role.</p>
+
+    <!-- ---------- BRICK LANE ---------- -->
+    <h2 class="sec" id="brick-lane">Brick Lane</h2>
+
+    <p><strong>Brick Lane</strong> is an AI workflow automation and business intelligence consultancy founded by Morey.<span class="status">Building</span> It was scoped after a survey of the Akron industrial corridor: rather than compete in physical warehouse operations consulting, Brick Lane positions itself upstream, as the data and business intelligence layer for ecommerce and logistics companies that already have systems but cannot get answers out of them.</p>
+
+    <p>The practice targets a specific and common failure mode — a company with an ERP, a WMS, a shipping platform, and a marketing stack, none of which agree with each other, and a leadership team making decisions from a manually assembled weekly deck. Brick Lane's offer is to unify those sources, define the metrics once, and automate the reporting that follows.</p>
+
+    <h3 class="sub">Services</h3>
+    <ul>
+      <li><strong>Data unification.</strong> Ingestion pipelines that reconcile order, inventory, fulfillment, and ad-platform data into a single warehouse.</li>
+      <li><strong>Business intelligence.</strong> Dashboards and self-serve reporting built on agreed definitions, so operators stop rebuilding the same numbers.</li>
+      <li><strong>Workflow automation.</strong> Removing recurring manual handoffs — exception reports, reorder triggers, exports and reconciliations.</li>
+      <li><strong>AI-assisted operations.</strong> <span class="todo">[Describe the scope you actually want to sell here — document extraction, forecasting, agent-assisted triage — and keep the claims tight.]</span></li>
+    </ul>
+
+    <h3 class="sub">Site</h3>
+    <p>The Brick Lane site is a single-page build with scroll-driven animation and a restrained, instrument-panel aesthetic. Its interactive elements — animated KPI dashboards, an API hub visualization, and autonomous agent status displays — double as a demonstration of the work: the page is the product pitch and a sample of the deliverable at the same time.</p>
+    <div class="linkrow">
+      <a href="#" class="todo">Brick Lane site &rarr; [add URL]</a>
+      <span>Client work &mdash; case studies pending</span>
+    </div>
+
+    <!-- ---------- PROJECTS ---------- -->
+    <h2 class="sec" id="projects">Projects</h2>
+
+    <p>Morey&rsquo;s production work &mdash; the dashboards and automations described above &mdash; lives inside employer systems and cannot be published. The projects below are independent, and the public code portfolio is being built out alongside the Georgia Tech program.</p>
+
+    <div class="proj">
+      <h3 class="sub">Royal Cheetah Polo Club</h3>
+      <p>A generative collection of 4,444 anthropomorphic cheetah portraits built around an old-money polo club aesthetic. Beyond the illustration, it was largely a combinatorics and specification exercise: designing a trait taxonomy, setting rarity distributions that produce a defensible spread across thousands of outputs without collisions, and writing an art brief precise enough that trait production could be outsourced and still composite cleanly.</p>
+      <div class="linkrow">
+        <span>Confirm or delete &mdash; add a link if there is one</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <h3 class="sub">Market Simulator</h3>
+      <p>A browser-based stock trading simulation: a self-contained market model where a player places trades against generated price series and watches a portfolio evolve over simulated time. Built to make position sizing and volatility legible by playing with them rather than reading about them.</p>
+      <div class="linkrow">
+        <span>Confirm or delete &mdash; add a link if there is one</span>
+      </div>
+    </div>
+
+    <div class="proj">
+      <h3 class="sub">Genealogical Record Linkage<span class="status">Ongoing</span></h3>
+      <p>A personal research project tracing family lineage using the <em>gateway ancestor</em> strategy &mdash; identifying documented colonial-era immigrants with established descents into medieval nobility, then working to connect a line to one of them. Practically it is an entity resolution problem: matching people across censuses, parish registers, wills, and immigration records where names are inconsistent, dates are approximate, and sources disagree.</p>
+    </div>
+
+    <div class="proj">
+      <h3 class="sub"><span class="todo">[First public repository &mdash; the most important gap on this page]</span></h3>
+      <p class="todo">[One end-to-end analysis with a readable README: the question, where the data came from, what you did to it, what it said, and what you would do differently. It does not need to be sophisticated. A clean, honest, finished small project beats an ambitious unfinished one, and it is the single thing that moves this page from &ldquo;operations manager studying analytics&rdquo; to &ldquo;analyst.&rdquo; Your CSE 6040 work is a natural source once the term is underway.]</p>
+      <div class="linkrow">
+        <a href="https://github.com/christianmorey" target="_blank" rel="noopener">github.com/christianmorey</a>
+      </div>
+    </div>
+
+    <!-- ---------- SKILLS ---------- -->
+    <h2 class="sec" id="technical-skills">Technical Skills</h2>
+    <div class="data-wrap">
+      <table class="data">
+        <caption>Self-assessed. Set these where you would be comfortable being questioned in a technical screen &mdash; an overstated row costs more than a modest one.</caption>
+        <thead>
+          <tr><th scope="col">Tool</th><th scope="col">Used for</th><th scope="col">Depth</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Excel</strong></td><td>Modeling, pivots, the shared language of the floor</td><td class="lvl"><span class="bar"><i style="width:90%"></i></span>Strong</td></tr>
+          <tr><td><strong>VBA</strong></td><td>Macro automation of accounting and reporting workflows</td><td class="lvl"><span class="bar"><i style="width:85%"></i></span>Strong</td></tr>
+          <tr><td><strong>Smartsheet</strong></td><td>Workflow automation and integrations at RKL</td><td class="lvl"><span class="bar"><i style="width:80%"></i></span>Strong</td></tr>
+          <tr><td><strong>Power BI</strong></td><td>Cost and performance dashboards for operational leadership</td><td class="lvl"><span class="bar"><i style="width:70%"></i></span>Working</td></tr>
+          <tr><td><strong>SQL</strong></td><td>Querying source systems, joins, reporting views</td><td class="lvl"><span class="bar"><i style="width:55%"></i></span>Working</td></tr>
+          <tr><td><strong>Python</strong></td><td>pandas and analysis; primary language of the OMSA program</td><td class="lvl"><span class="bar"><i style="width:40%"></i></span>Learning</td></tr>
+          <tr><td><strong>Microsoft Azure</strong></td><td>Data access and integration for financial systems</td><td class="lvl"><span class="bar"><i style="width:40%"></i></span>Familiar</td></tr>
+          <tr><td><strong>R</strong></td><td>Statistical analysis and visualization</td><td class="lvl"><span class="bar"><i style="width:35%"></i></span>Familiar</td></tr>
+          <tr><td>Sage Intacct, Bill.com, Suralink</td><td>Financial reporting, budgets, and forecasting models</td><td class="lvl">Applied</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Domain strengths.</strong> Workforce scheduling and capacity planning at the 250&ndash;400 headcount scale, KPI definition and reporting, process automation, cross-functional escalation, and translating between floor operators and systems people &mdash; the last of which is the differentiator on a r&eacute;sum&eacute; full of candidates who have only ever seen clean data.</p>
+
+    <!-- ---------- CERTIFICATIONS ---------- -->
+    <h2 class="sec" id="certifications">Certifications and Continuing Education</h2>
+    <ul>
+      <li><span class="todo">[Certification name, issuer, date — e.g. Google Data Analytics, Microsoft PL-300, Six Sigma Green Belt]</span></li>
+      <li><span class="todo">[Course or cohort — anything with a verifiable completion record]</span></li>
+      <li>Georgia Institute of Technology, M.S. Analytics &mdash; in progress, expected 2028</li>
+    </ul>
+
+    <!-- ---------- PERSONAL LIFE ---------- -->
+    <h2 class="sec" id="personal-life">Personal Life</h2>
+    <p>Morey lives in the Akron area of Summit County, Ohio. <span class="todo">[Optional &mdash; add anything you are comfortable making public, or delete this section entirely.]</span></p>
+
+    <h3 class="sub" id="interests">Interests</h3>
+    <p>Morey collects Pokémon trading cards, approaching the hobby partly as a market: tracking population reports, print runs, and grading spreads is the kind of small, self-contained dataset that rewards the same habits as the day job. He also cooks in batches, keeps a running interest in genealogy and archival research, and builds side projects mostly to have somewhere to try a tool before using it on anything that matters.</p>
+
+    <!-- ---------- FURTHER READING ---------- -->
+    <h2 class="sec" id="further-reading">Further Reading and Resources</h2>
+    <ul>
+      <li><a href="https://pe.gatech.edu/degrees/analytics" target="_blank" rel="noopener">Georgia Tech OMSA</a> — program structure and course catalog</li>
+      <li><a href="https://wesmckinney.com/book/" target="_blank" rel="noopener">Python for Data Analysis</a> — McKinney, the pandas reference</li>
+      <li><a href="https://r4ds.hadley.nz/" target="_blank" rel="noopener">R for Data Science</a> — Wickham &amp; Grolemund</li>
+      <li><a href="https://www.getdbt.com/blog/what-exactly-is-dbt" target="_blank" rel="noopener">Analytics engineering</a> — the discipline that sits between the warehouse and the dashboard</li>
+    </ul>
+
+    <!-- ---------- EXTERNAL LINKS ---------- -->
+    <h2 class="sec" id="external-links">External Links</h2>
+    <div class="navbox">
+      <div class="navbox-head">Christian Morey — External Links</div>
+      <table>
+        <tbody>
+          <tr>
+            <th scope="row">Professional</th>
+            <td><a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a> · <a href="#" class="todo">Résumé (PDF) [add URL]</a> · <a href="#" class="todo">Email [add address]</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Code</th>
+            <td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub profile</a> · <span class="todo">Pinned repositories &mdash; add once you have a first project</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Business</th>
+            <td><a href="#" class="todo">Brick Lane [add URL]</a></td>
+          </tr>
+          <tr>
+            <th scope="row">Writing</th>
+            <td><span class="todo">[Blog, newsletter, or Kaggle profile — optional, but a single well-written project write-up goes a long way]</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ---------- NOTES ---------- -->
+    <h2 class="sec" id="notes">Notes</h2>
+    <ol class="notes">
+      <li id="note-1">Figure self-reported from the RKL LLP analyst role (December 2023 &ndash; May 2024); see <a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a>. <a href="#ref-1">&#8593;</a></li>
+      <li id="note-2">Georgia Institute of Technology, &ldquo;CSE 6040: Intro to Computing for Data Analysis,&rdquo; Fall 2026 course description. <a href="#ref-2">&#8593;</a></li>
+      <li id="note-3">Headcount and leadership scope are typical daily figures and vary by shift and season. <a href="#ref-3">&#8593;</a></li>
+    </ol>
+
+    <p class="disclaimer">No affiliation with wikipedia.org or the Wikimedia Foundation. This page is a personal portfolio presented in an encyclopedic format; it is a self-authored document, not a third-party reference work.</p>
+
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------- placeholder highlighting ---------- */
+  var body = document.body;
+  var litBtn = document.getElementById("lit");
+  var litN = document.getElementById("litN");
+  var todoCount = document.querySelectorAll(".todo").length;
+
+  function setLit(on) {
+    body.classList.toggle("todo-lit", on);
+    litBtn.setAttribute("aria-pressed", String(on));
+    litN.textContent = on ? todoCount + " to fill in" : "off";
+  }
+  setLit(true);
+  litBtn.addEventListener("click", function () {
+    setLit(!body.classList.contains("todo-lit"));
+  });
+
+  /* ---------- table of contents scrollspy ---------- */
+  var railLinks = Array.prototype.slice.call(
+    document.querySelectorAll("#tocList a[href^='#']")
+  );
+  var targets = railLinks
+    .map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); })
+    .filter(Boolean);
+
+  function spy() {
+    var best = null, bestTop = -Infinity, probe = 120;
+    var atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
+    if (atBottom && targets.length) best = targets[targets.length - 1];
+    if (!best) targets.forEach(function (el) {
+      var top = el.getBoundingClientRect().top;
+      if (top <= probe && top > bestTop) { bestTop = top; best = el; }
+    });
+    railLinks.forEach(function (a) {
+      a.classList.toggle("active", best && a.getAttribute("href") === "#" + best.id);
+    });
+  }
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function () { spy(); ticking = false; });
+  }, { passive: true });
+  spy();
+
+  /* ---------- in-page search ---------- */
+  var input = document.getElementById("q");
+  var article = document.querySelector(".article");
+  var blocks = Array.prototype.slice.call(
+    article.querySelectorAll("h2.sec, h3.sub, p, li, .proj, .callout, table.data")
+  ).filter(function (el) { return !el.closest(".toc-mobile"); });
+
+  var originals = new Map();
+  blocks.forEach(function (el) { originals.set(el, el.innerHTML); });
+
+  function clearSearch() {
+    blocks.forEach(function (el) {
+      if (el.innerHTML !== originals.get(el)) el.innerHTML = originals.get(el);
+      el.classList.remove("dimmed");
+    });
+  }
+
+  function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  function run(term) {
+    clearSearch();
+    if (term.length < 2) return;
+    var re = new RegExp("(" + escapeRe(term) + ")", "gi");
+    var firstHit = null;
+
+    blocks.forEach(function (el) {
+      if (el.querySelector && el.querySelector(".proj, table.data")) return;
+      var text = el.textContent || "";
+      if (re.test(text)) {
+        re.lastIndex = 0;
+        // highlight only inside text nodes, so markup survives
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+        var nodes = [], n;
+        while ((n = walker.nextNode())) nodes.push(n);
+        nodes.forEach(function (node) {
+          if (!re.test(node.nodeValue)) { re.lastIndex = 0; return; }
+          re.lastIndex = 0;
+          var span = document.createElement("span");
+          span.innerHTML = node.nodeValue.replace(re, '<mark class="hit">$1</mark>');
+          node.parentNode.replaceChild(span, node);
+        });
+        if (!firstHit) firstHit = el;
+      } else {
+        el.classList.add("dimmed");
+      }
+    });
+
+    if (firstHit) {
+      firstHit.scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+  }
+
+  var timer;
+  input.addEventListener("input", function () {
+    clearTimeout(timer);
+    var v = input.value.trim();
+    timer = setTimeout(function () { run(v); }, 180);
+  });
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { input.value = ""; clearSearch(); input.blur(); }
+  });
+
+  /* ---------- "/" focuses search, Wikipedia-style ---------- */
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "/" && document.activeElement !== input) {
+      e.preventDefault();
+      input.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
