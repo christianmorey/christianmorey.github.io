@@ -215,6 +215,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{
 .article p{margin:0 0 .95rem}
 .lead p:first-of-type{font-size:1.02rem}
 h2.sec{
+  clear:both;
   font-family:var(--f-display);font-weight:500;font-size:1.62rem;
   letter-spacing:-.015em;margin:2.4rem 0 .85rem;padding-bottom:.3rem;
   border-bottom:1px solid var(--rule);scroll-margin-top:5rem;text-wrap:balance;
@@ -252,33 +253,45 @@ body.todo-lit .todo{
   font-family:var(--f-display);font-size:1.06rem;font-weight:600;text-align:center;
   padding:.55rem .8rem;background:var(--surface-2);border-bottom:1px solid var(--rule);
 }
-.portrait{
-  margin:.8rem .8rem .35rem;aspect-ratio:4/5;border:1px solid var(--rule);
-  background:
-    repeating-linear-gradient(135deg, var(--surface-2) 0 10px, transparent 10px 20px),
-    var(--surface);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:.4rem;color:var(--ink-faint);text-align:center;padding:1rem;
-}
-.portrait .glyph{font-family:var(--f-display);font-size:2.4rem;line-height:1;opacity:.55}
-.portrait small{font-size:.75rem;line-height:1.35;max-width:12rem}
 .infobox figcaption{
   text-align:center;font-size:.79rem;color:var(--ink-muted);
-  padding:0 .8rem .7rem;line-height:1.4;
+  padding:.15rem .8rem .7rem;line-height:1.4;
 }
 .infobox table{width:100%;border-collapse:collapse}
 .infobox th,.infobox td{
   text-align:left;vertical-align:top;padding:.42rem .8rem;
   border-top:1px solid var(--rule-soft);
 }
-.infobox th{
-  width:8.2rem;font-weight:700;font-size:.8rem;color:var(--ink);
-}
+.infobox th{width:8.2rem;font-weight:700;font-size:.8rem;color:var(--ink)}
 .infobox td{color:var(--ink-muted)}
 .infobox td a{color:var(--link)}
 @media (max-width:48rem){
   .infobox{float:none;width:100%;margin:1.2rem 0}
 }
+
+/* --- image frames: show a labelled slot until the file exists --- */
+.frame{position:relative;overflow:hidden;background:var(--surface-2);
+  border:1px solid var(--rule-soft)}
+.frame img{display:block;width:100%;height:100%;object-fit:cover}
+.frame .slot{display:none}
+.frame.empty{
+  background:
+    repeating-linear-gradient(135deg, var(--surface-2) 0 10px, transparent 10px 20px),
+    var(--surface);
+}
+.frame.empty img{display:none}
+.frame.empty .slot{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.35rem;width:100%;height:100%;padding:.9rem;text-align:center;
+  color:var(--ink-faint);
+}
+.frame.empty .slot code{
+  font-family:var(--f-mono);font-size:.72rem;color:var(--accent);
+  background:var(--accent-soft);padding:.1rem .35rem;border-radius:2px;
+  word-break:break-all;
+}
+.frame.empty .slot em{font-size:.72rem;line-height:1.35;font-style:italic}
+.portrait{margin:.8rem .8rem .5rem;aspect-ratio:4/5;border:1px solid var(--rule)}
 
 /* --- thumbnails --- */
 .thumb{
@@ -286,17 +299,60 @@ body.todo-lit .todo{
   margin:.3rem 0 1rem 1.4rem;border:1px solid var(--rule);
   background:var(--surface);padding:.5rem;border-radius:3px;font-size:.79rem;
 }
-.thumb-art{
-  aspect-ratio:3/2;background:var(--surface-2);border:1px solid var(--rule-soft);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--f-mono);font-size:.72rem;color:var(--ink-faint);
-  text-align:center;padding:.6rem;line-height:1.5;
-}
+.thumb .frame{aspect-ratio:3/2}
 .thumb figcaption{color:var(--ink-muted);padding:.45rem .1rem 0;line-height:1.42}
 .thumb.left{float:left;clear:left;margin:.3rem 1.4rem 1rem 0}
+.thumb.tall .frame{aspect-ratio:3/4}
 @media (max-width:48rem){
   .thumb,.thumb.left{float:none;width:100%;margin:1rem 0}
 }
+
+/* --- institution logo plates --- */
+.plates{
+  float:left;clear:left;width:11.5rem;margin:.3rem 1.4rem 1rem 0;
+  display:flex;flex-direction:column;gap:.7rem;
+}
+.plate{
+  border:1px solid var(--rule);background:var(--surface);
+  padding:.5rem;border-radius:3px;font-size:.75rem;
+}
+.plate .frame{
+  aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+  background:var(--paper);
+}
+.plate .frame.empty{background:var(--paper)}
+.plate .frame.empty .slot{gap:.15rem;padding:.5rem}
+.plate .frame.empty .slot b{
+  font-family:var(--f-display);font-size:.9rem;font-weight:600;
+  color:var(--ink-muted);line-height:1.15;
+}
+.plate figcaption{
+  color:var(--ink-muted);padding-top:.35rem;text-align:center;line-height:1.35;
+}
+@media (max-width:48rem){
+  .plates{float:none;width:100%;flex-direction:row;flex-wrap:wrap;margin:1rem 0}
+  .plate{flex:1 1 8rem}
+}
+
+/* --- career timeline --- */
+.timeline{
+  max-width:var(--measure);margin:1.4rem 0 1.6rem;
+  border:1px solid var(--rule);border-radius:3px;background:var(--surface);
+  padding:1.1rem 1.2rem .9rem;
+}
+.timeline figcaption{
+  font-size:.79rem;color:var(--ink-muted);font-style:italic;
+  padding-top:.7rem;margin-top:.8rem;border-top:1px solid var(--rule-soft);
+}
+.timeline svg{display:block;width:100%;height:auto;overflow:visible}
+.tl-axis{stroke:var(--rule);stroke-width:1}
+.tl-stem{stroke:var(--rule);stroke-width:1}
+.tl-dot{fill:var(--paper);stroke:var(--accent);stroke-width:2}
+.tl-dot.now{fill:var(--accent)}
+.tl-year{font-family:var(--f-mono);font-size:11px;fill:var(--ink-faint);letter-spacing:.04em}
+.tl-role{font-family:var(--f-body);font-size:12.5px;font-weight:700;fill:var(--ink)}
+.tl-org{font-family:var(--f-body);font-size:12px;fill:var(--ink-muted)}
+.tl-band{fill:var(--accent);opacity:.13}
 
 /* --- project cards --- */
 .proj{border-left:2px solid var(--rule);padding-left:1rem;margin:1.5rem 0}
@@ -489,11 +545,13 @@ html{scroll-behavior:smooth}
     <section class="lead">
       <figure class="infobox">
         <div class="infobox-head">Christian Morey</div>
-        <div class="portrait">
-          <span class="glyph">C</span>
-          <small class="todo">Drop a headshot here — replace this block with an &lt;img&gt;</small>
+        <div class="portrait frame empty">
+          <img src="images/portrait.jpg" alt="Christian Morey"
+               onerror="this.parentNode.classList.add('empty')"
+               onload="this.parentNode.classList.remove('empty')">
+          <span class="slot"><code>images/portrait.jpg</code><em>Add this file to the repo and the photo appears here.</em></span>
         </div>
-        <figcaption>Portrait pending;<br><em>Northeast Ohio, 2026</em></figcaption>
+        <figcaption>Christian Morey, Northeast Ohio.</figcaption>
         <table>
           <tbody>
             <tr><th>Occupation</th><td>Operations manager; analytics practitioner</td></tr>
@@ -501,7 +559,7 @@ html{scroll-behavior:smooth}
             <tr><th>Employer</th><td>Amazon &mdash; Operations Manager, Amazon&nbsp;Robotics fulfillment center</td></tr>
             <tr><th>Previously</th><td>RKL&nbsp;LLP &mdash; Analyst (2023&ndash;2024)</td></tr>
             <tr><th>Team</th><td>250&ndash;400 associates; 16 leaders</td></tr>
-            <tr><th>Education</th><td>Georgia Institute of Technology (M.S. Analytics, in progress)<br><span class="todo">[Undergraduate institution and degree]</span></td></tr>
+            <tr><th>Education</th><td>DeSales University (2024)<br>Georgia Institute of Technology (M.S. Analytics, in progress)</td></tr>
             <tr><th>Known&nbsp;for</th><td>Operations leadership at scale; cost-visibility dashboards; workflow automation; <a href="#brick-lane">Brick Lane</a></td></tr>
             <tr><th>Languages</th><td>Python, SQL, R, VBA</td></tr>
             <tr><th>Profiles</th><td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a></td></tr>
@@ -521,19 +579,85 @@ html{scroll-behavior:smooth}
 
     <!-- ---------- BACKGROUND ---------- -->
     <h2 class="sec" id="background">Background</h2>
-    <p>Morey was born in <span class="todo">[city, state]</span> and <span class="todo">[raised where — one or two specific details; this is what makes the page read like an article rather than a r&eacute;sum&eacute;]</span>.</p>
+    <p>Morey&rsquo;s route into analytics ran through finance and operations rather than through a computer science program. It started with VBA: writing macros to take the repetitive parts out of accounting work, then reaching for Azure and his firm&rsquo;s financial systems to pull data that had previously been re-keyed by hand, and finally building Smartsheet and Power BI dashboards on top of it so the numbers arrived without anyone assembling them.</p>
 
-    <p>His route into analytics ran through finance and operations rather than through a computer science program. It started with VBA: writing macros to take the repetitive parts out of accounting work, then reaching for Azure and the firm&rsquo;s financial systems to pull data that had previously been re-keyed by hand, and finally building Smartsheet and Power BI dashboards on top of it so the numbers arrived without anyone assembling them.</p>
+    <p>That sequence &mdash; the manual process first, the automation second, the dashboard third &mdash; still shapes how he approaches technical work. He tends to arrive at a model only after the collection and the definitions around it are trustworthy, a habit formed by watching what happens on an operations floor when they are not.</p>
 
-    <p>That sequence &mdash; a manual process first, the automation second, the dashboard third &mdash; still shapes how he approaches technical work. He tends to arrive at a model only after the collection and the definitions around it are trustworthy, which is a habit formed by watching what happens on an operations floor when they are not.</p>
+    <p class="todo">[Optional: two or three sentences on where you grew up and what pointed you toward this work. This is the section that makes the page read like an article instead of a r&eacute;sum&eacute; &mdash; but it only works with real detail, so leave it out rather than filling it with something generic.]</p>
 
     <!-- ---------- OPERATIONS CAREER ---------- -->
     <h2 class="sec" id="career">Career</h2>
 
     <figure class="thumb">
-      <div class="thumb-art">[ photo or dashboard screenshot ]<br>a cost-visibility view you built,<br>with anything proprietary blurred</div>
-      <figcaption>A cost-metrics view built for floor leadership. <span class="todo">Swap in a real screenshot, or delete this figure.</span></figcaption>
+      <div class="frame empty">
+        <img src="images/dashboard.png" alt="A cost-visibility dashboard built for floor leadership"
+             onerror="this.parentNode.classList.add('empty')"
+             onload="this.parentNode.classList.remove('empty')">
+        <span class="slot"><code>images/dashboard.png</code><em>A dashboard you built &mdash; blur anything proprietary first.</em></span>
+      </div>
+      <figcaption>A cost-metrics view built for floor leadership.</figcaption>
     </figure>
+
+    <figure class="timeline">
+      <svg viewBox="0 0 660 150" role="img" aria-label="Career timeline: RKL LLP analyst in 2023, DeSales University degree in 2024, Amazon operations manager, and Georgia Tech M.S. Analytics beginning 2026.">
+        <rect class="tl-band" x="404" y="91" width="216" height="8" rx="4"></rect>
+        <line class="tl-axis" x1="40" y1="95" x2="620" y2="95"></line>
+
+        <g>
+          <text class="tl-role" x="100" y="52" text-anchor="middle">Analyst</text>
+          <text class="tl-org"  x="100" y="68" text-anchor="middle">RKL LLP</text>
+          <line class="tl-stem" x1="100" y1="76" x2="100" y2="88"></line>
+          <circle class="tl-dot" cx="100" cy="95" r="5"></circle>
+          <text class="tl-year" x="100" y="117" text-anchor="middle">2023</text>
+        </g>
+
+        <g>
+          <text class="tl-role" x="253" y="52" text-anchor="middle">Graduated</text>
+          <text class="tl-org"  x="253" y="68" text-anchor="middle">DeSales University</text>
+          <line class="tl-stem" x1="253" y1="76" x2="253" y2="88"></line>
+          <circle class="tl-dot" cx="253" cy="95" r="5"></circle>
+          <text class="tl-year" x="253" y="117" text-anchor="middle">2024</text>
+        </g>
+
+        <g>
+          <text class="tl-role" x="407" y="52" text-anchor="middle">Operations Manager</text>
+          <text class="tl-org"  x="407" y="68" text-anchor="middle">Amazon</text>
+          <line class="tl-stem" x1="407" y1="76" x2="407" y2="88"></line>
+          <circle class="tl-dot now" cx="407" cy="95" r="5"></circle>
+          <text class="tl-year" x="407" y="117" text-anchor="middle">2024</text>
+        </g>
+
+        <g>
+          <text class="tl-role" x="565" y="52" text-anchor="middle">M.S. Analytics</text>
+          <text class="tl-org"  x="565" y="68" text-anchor="middle">Georgia Tech</text>
+          <line class="tl-stem" x1="565" y1="76" x2="565" y2="88"></line>
+          <circle class="tl-dot now" cx="565" cy="95" r="5"></circle>
+          <text class="tl-year" x="565" y="117" text-anchor="middle">2026</text>
+        </g>
+      </svg>
+      <figcaption>Career to date. The shaded span marks work currently in progress. <span class="todo">Confirm the year you started at Amazon.</span></figcaption>
+    </figure>
+
+    <div class="plates">
+      <figure class="plate">
+        <div class="frame empty">
+          <img src="images/logo-amazon.png" alt="Amazon"
+               onerror="this.parentNode.classList.add('empty')"
+               onload="this.parentNode.classList.remove('empty')">
+          <span class="slot"><b>Amazon</b></span>
+        </div>
+        <figcaption>Amazon</figcaption>
+      </figure>
+      <figure class="plate">
+        <div class="frame empty">
+          <img src="images/logo-rkl.png" alt="RKL LLP"
+               onerror="this.parentNode.classList.add('empty')"
+               onload="this.parentNode.classList.remove('empty')">
+          <span class="slot"><b>RKL LLP</b></span>
+        </div>
+        <figcaption>RKL LLP</figcaption>
+      </figure>
+    </div>
 
     <h3 class="sub" id="amazon">Amazon &mdash; Operations Manager</h3>
     <p>Morey manages operations at an Amazon Robotics fulfillment center in Northeast Ohio. On a given day he is responsible for 250 to 400 associates, four salaried leaders, and twelve hourly leaders, across a schedule of four twelve-hour shifts per week.</p>
@@ -569,16 +693,42 @@ html{scroll-behavior:smooth}
     <!-- ---------- EDUCATION ---------- -->
     <h2 class="sec" id="education">Education</h2>
 
-    <figure class="thumb">
-      <div class="thumb-art">[ institution mark ]<br>DeSales University<br>Georgia Institute of Technology</div>
-      <figcaption>DeSales University (2024) and Georgia Tech, where Morey began the OMSA program in Fall 2026.</figcaption>
+    <div class="plates">
+      <figure class="plate">
+        <div class="frame empty">
+          <img src="images/logo-desales.png" alt="DeSales University"
+               onerror="this.parentNode.classList.add('empty')"
+               onload="this.parentNode.classList.remove('empty')">
+          <span class="slot"><b>DeSales<br>University</b></span>
+        </div>
+        <figcaption>DeSales University</figcaption>
+      </figure>
+      <figure class="plate">
+        <div class="frame empty">
+          <img src="images/logo-gatech.png" alt="Georgia Institute of Technology"
+               onerror="this.parentNode.classList.add('empty')"
+               onload="this.parentNode.classList.remove('empty')">
+          <span class="slot"><b>Georgia<br>Tech</b></span>
+        </div>
+        <figcaption>Georgia Institute of Technology</figcaption>
+      </figure>
+    </div>
+
+    <figure class="thumb tall">
+      <div class="frame empty">
+        <img src="images/graduation.jpg" alt="Christian Morey at his DeSales University graduation"
+             onerror="this.parentNode.classList.add('empty')"
+             onload="this.parentNode.classList.remove('empty')">
+        <span class="slot"><code>images/graduation.jpg</code><em>A graduation photo, or any photo of you.</em></span>
+      </div>
+      <figcaption>DeSales University commencement, 2024.</figcaption>
     </figure>
 
-    <p>Morey holds a <span class="todo">[degree and major]</span> from <a href="https://www.desales.edu/" target="_blank" rel="noopener">DeSales University</a>, awarded in 2024. <span class="todo">[Any coursework, honors, or activities worth naming &mdash; optional.]</span></p>
+    <p>Morey holds a <span class="todo">[degree and major]</span> from <a href="https://www.desales.edu/" target="_blank" rel="noopener">DeSales University</a> in Center Valley, Pennsylvania, awarded in 2024.</p>
 
     <p>In Fall 2026 he began the <strong>Online Master of Science in Analytics</strong> at the Georgia Institute of Technology, a two-year program pursued alongside full-time work. His first term centers on <em>CSE 6040: Intro to Computing for Data Analysis</em>, a Python-based course covering numerical computing, data structures for analysis, and applied algorithms, assessed through autograded notebooks and proctored exams.<sup class="ref"><a href="#note-2" id="ref-2">[2]</a></sup></p>
 
-    <p>He plans to concentrate in <span class="todo">[track &mdash; Analytical Tools, Business Analytics, or Computational Data Analytics]</span>, with the longer-term goal of moving from operations leadership into a full-time analytics role.</p>
+    <p>The program offers three tracks &mdash; Analytical Tools, Business Analytics, and Computational Data Analytics &mdash; and Morey expects to settle on one as the core coursework progresses. The longer-term goal is a move from operations leadership into a full-time analytics role.</p>
 
     <!-- ---------- BRICK LANE ---------- -->
     <h2 class="sec" id="brick-lane">Brick Lane</h2>
@@ -605,32 +755,17 @@ html{scroll-behavior:smooth}
     <!-- ---------- PROJECTS ---------- -->
     <h2 class="sec" id="projects">Projects</h2>
 
-    <p>Morey&rsquo;s production work &mdash; the dashboards and automations described above &mdash; lives inside employer systems and cannot be published. The projects below are independent, and the public code portfolio is being built out alongside the Georgia Tech program.</p>
-
-    <div class="proj">
-      <h3 class="sub">Royal Cheetah Polo Club</h3>
-      <p>A generative collection of 4,444 anthropomorphic cheetah portraits built around an old-money polo club aesthetic. Beyond the illustration, it was largely a combinatorics and specification exercise: designing a trait taxonomy, setting rarity distributions that produce a defensible spread across thousands of outputs without collisions, and writing an art brief precise enough that trait production could be outsourced and still composite cleanly.</p>
-      <div class="linkrow">
-        <span>Confirm or delete &mdash; add a link if there is one</span>
-      </div>
-    </div>
-
-    <div class="proj">
-      <h3 class="sub">Market Simulator</h3>
-      <p>A browser-based stock trading simulation: a self-contained market model where a player places trades against generated price series and watches a portfolio evolve over simulated time. Built to make position sizing and volatility legible by playing with them rather than reading about them.</p>
-      <div class="linkrow">
-        <span>Confirm or delete &mdash; add a link if there is one</span>
-      </div>
-    </div>
+    <p>Morey&rsquo;s production work &mdash; the automations and dashboards described above &mdash; lives inside employer systems and cannot be published. A public portfolio is being built alongside the Georgia Tech program; the entries below are independent of any employer.</p>
 
     <div class="proj">
       <h3 class="sub">Genealogical Record Linkage<span class="status">Ongoing</span></h3>
-      <p>A personal research project tracing family lineage using the <em>gateway ancestor</em> strategy &mdash; identifying documented colonial-era immigrants with established descents into medieval nobility, then working to connect a line to one of them. Practically it is an entity resolution problem: matching people across censuses, parish registers, wills, and immigration records where names are inconsistent, dates are approximate, and sources disagree.</p>
+      <p>A personal research project tracing family lineage using the <em>gateway ancestor</em> strategy &mdash; identifying documented colonial-era immigrants with established descents into medieval nobility, then working to connect a line to one of them.</p>
+      <p>Practically, it is an entity resolution problem. Names are spelled inconsistently across generations, dates are approximate, records are transcribed by hand from originals, and independent sources routinely disagree about the same person. Deciding that two records describe one individual &mdash; and being able to say why &mdash; is the same judgment that record matching demands in commercial data, learned here on a dataset where being wrong is cheap.</p>
     </div>
 
     <div class="proj">
-      <h3 class="sub"><span class="todo">[First public repository &mdash; the most important gap on this page]</span></h3>
-      <p class="todo">[One end-to-end analysis with a readable README: the question, where the data came from, what you did to it, what it said, and what you would do differently. It does not need to be sophisticated. A clean, honest, finished small project beats an ambitious unfinished one, and it is the single thing that moves this page from &ldquo;operations manager studying analytics&rdquo; to &ldquo;analyst.&rdquo; Your CSE 6040 work is a natural source once the term is underway.]</p>
+      <h3 class="sub"><span class="todo">[First public repository]</span></h3>
+      <p class="todo">[The most valuable thing you can add to this page. One end-to-end analysis with a readable README: the question, where the data came from, what you did to it, what it showed, and what you would do differently. It does not need to be sophisticated &mdash; a small, finished, honest project beats an ambitious unfinished one, and it is what moves this page from &ldquo;operations manager studying analytics&rdquo; to &ldquo;analyst.&rdquo; Your CSE 6040 coursework is a natural source once the term is underway.]</p>
       <div class="linkrow">
         <a href="https://github.com/christianmorey" target="_blank" rel="noopener">github.com/christianmorey</a>
       </div>
@@ -662,14 +797,13 @@ html{scroll-behavior:smooth}
     <!-- ---------- CERTIFICATIONS ---------- -->
     <h2 class="sec" id="certifications">Certifications and Continuing Education</h2>
     <ul>
-      <li><span class="todo">[Certification name, issuer, date — e.g. Google Data Analytics, Microsoft PL-300, Six Sigma Green Belt]</span></li>
-      <li><span class="todo">[Course or cohort — anything with a verifiable completion record]</span></li>
-      <li>Georgia Institute of Technology, M.S. Analytics &mdash; in progress, expected 2028</li>
+      <li><strong>M.S. Analytics</strong>, Georgia Institute of Technology &mdash; in progress, expected 2028</li>
+      <li class="todo">[Any certification with a verifiable completion record &mdash; Microsoft PL-300 for Power BI would sit naturally next to the dashboard work, and Six Sigma Green Belt next to the operations role. Delete this line if you have none yet; an empty list is better than a padded one.]</li>
     </ul>
 
     <!-- ---------- PERSONAL LIFE ---------- -->
     <h2 class="sec" id="personal-life">Personal Life</h2>
-    <p>Morey lives in the Akron area of Summit County, Ohio. <span class="todo">[Optional &mdash; add anything you are comfortable making public, or delete this section entirely.]</span></p>
+    <p>Morey lives in the Akron area of Summit County, Ohio.</p>
 
     <h3 class="sub" id="interests">Interests</h3>
     <p>Morey collects Pokémon trading cards, approaching the hobby partly as a market: tracking population reports, print runs, and grading spreads is the kind of small, self-contained dataset that rewards the same habits as the day job. He also cooks in batches, keeps a running interest in genealogy and archival research, and builds side projects mostly to have somewhere to try a tool before using it on anything that matters.</p>
@@ -695,15 +829,11 @@ html{scroll-behavior:smooth}
           </tr>
           <tr>
             <th scope="row">Code</th>
-            <td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub profile</a> · <span class="todo">Pinned repositories &mdash; add once you have a first project</span></td>
+            <td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub profile</a> · <span>Pinned repositories &mdash; once the first project lands</span></td>
           </tr>
           <tr>
             <th scope="row">Business</th>
             <td><a href="#" class="todo">Brick Lane [add URL]</a></td>
-          </tr>
-          <tr>
-            <th scope="row">Writing</th>
-            <td><span class="todo">[Blog, newsletter, or Kaggle profile — optional, but a single well-written project write-up goes a long way]</span></td>
           </tr>
         </tbody>
       </table>
