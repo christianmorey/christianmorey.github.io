@@ -233,16 +233,6 @@ h4.subsub{
 sup.ref{font-size:.7em;line-height:0}
 sup.ref a{font-family:var(--f-mono)}
 
-/* --- placeholders --- */
-.todo{
-  color:var(--accent);border-bottom:1px dotted var(--accent);
-  font-style:italic;cursor:help;
-}
-body.todo-lit .todo{
-  background:var(--accent-soft);border-radius:2px;
-  padding:0 .15em;border-bottom:1px solid var(--accent);
-}
-
 /* --- infobox --- */
 .infobox{
   float:right;width:20.5rem;max-width:100%;margin:.35rem 0 1.2rem 1.6rem;
@@ -465,7 +455,6 @@ html{scroll-behavior:smooth}
     <nav class="chrome-links" aria-label="Quick links">
       <a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub</a>
-      <button id="lit" type="button" aria-pressed="true">Placeholders: <b id="litN">on</b></button>
     </nav>
   </div>
 </header>
@@ -487,6 +476,11 @@ html{scroll-behavior:smooth}
         </ol>
       </li>
       <li><a href="#education">Education</a></li>
+      <li><a href="#esports">Collegiate Esports</a>
+        <ol>
+          <li><a href="#esports-media">Content and media</a></li>
+        </ol>
+      </li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#technical-skills">Technical Skills</a></li>
       <li><a href="#certifications">Certifications</a></li>
@@ -515,7 +509,8 @@ html{scroll-behavior:smooth}
           <li><a href="#background">Background</a></li>
           <li><a href="#career">Career</a></li>
           <li><a href="#education">Education</a></li>
-              <li><a href="#projects">Projects</a></li>
+          <li><a href="#esports">Collegiate Esports</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#technical-skills">Technical Skills</a></li>
           <li><a href="#certifications">Certifications</a></li>
           <li><a href="#personal-life">Personal Life</a></li>
@@ -552,12 +547,14 @@ html{scroll-behavior:smooth}
         <table>
           <tbody>
             <tr><th>Occupation</th><td>Operations manager; analytics practitioner</td></tr>
+            <tr><th>Born</th><td>Carmel, New York</td></tr>
             <tr><th>Based in</th><td>Akron, Ohio (Summit County)</td></tr>
             <tr><th>Employer</th><td>Amazon &mdash; Operations Manager, Amazon&nbsp;Robotics fulfillment center</td></tr>
             <tr><th>Previously</th><td>RKL&nbsp;LLP &mdash; Analyst (2023&ndash;2024)</td></tr>
             <tr><th>Team</th><td>250&ndash;400 associates; 16 leaders</td></tr>
             <tr><th>Education</th><td>DeSales University (B.S. Finance, 2024)<br>Georgia Institute of Technology (M.S. Analytics, in progress)</td></tr>
             <tr><th>Known&nbsp;for</th><td>Operations leadership at scale; cost-visibility dashboards; workflow automation</td></tr>
+            <tr><th>Esports</th><td>DeSales Bulldogs, <em>Overwatch</em> (tank / DPS)</td></tr>
             <tr><th>Languages</th><td>Python, SQL, R, VBA</td></tr>
             <tr><th>Profiles</th><td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a></td></tr>
             <tr><th>Site type</th><td>Personal portfolio</td></tr>
@@ -576,24 +573,14 @@ html{scroll-behavior:smooth}
 
     <!-- ---------- BACKGROUND ---------- -->
     <h2 class="sec" id="background">Background</h2>
+    <p>Morey grew up in Carmel, New York, and attended Carmel High School. He went on to DeSales University in Center Valley, Pennsylvania, where he competed on the varsity <a href="#esports">esports</a> roster and graduated in 2024 with a degree in finance.<sup class="ref"><a href="#note-5" id="ref-5">[5]</a></sup></p>
+
     <p>Morey&rsquo;s route into analytics ran through finance and operations rather than through a computer science program. It started with VBA: writing macros to take the repetitive parts out of accounting work, then reaching for Azure and his firm&rsquo;s financial systems to pull data that had previously been re-keyed by hand, and finally building Smartsheet and Power BI dashboards on top of it so the numbers arrived without anyone assembling them.</p>
 
     <p>That sequence &mdash; the manual process first, the automation second, the dashboard third &mdash; still shapes how he approaches technical work. He tends to arrive at a model only after the collection and the definitions around it are trustworthy, a habit formed by watching what happens on an operations floor when they are not.</p>
 
-    <p class="todo">[Optional: two or three sentences on where you grew up and what pointed you toward this work. This is the section that makes the page read like an article instead of a r&eacute;sum&eacute; &mdash; but it only works with real detail, so leave it out rather than filling it with something generic.]</p>
-
     <!-- ---------- OPERATIONS CAREER ---------- -->
     <h2 class="sec" id="career">Career</h2>
-
-    <figure class="thumb">
-      <div class="frame empty">
-        <img src="images/dashboard.png" alt="A cost-visibility dashboard built for floor leadership"
-             onerror="this.parentNode.classList.add('empty')"
-             onload="this.parentNode.classList.remove('empty')">
-        <span class="slot"><code>images/dashboard.png</code><em>A dashboard you built &mdash; blur anything proprietary first.</em></span>
-      </div>
-      <figcaption>A cost-metrics view built for floor leadership.</figcaption>
-    </figure>
 
     <figure class="timeline">
       <svg viewBox="0 0 660 150" role="img" aria-label="Career timeline: RKL LLP analyst in 2023, DeSales University degree in 2024, Amazon operations manager, and Georgia Tech M.S. Analytics beginning 2026.">
@@ -635,27 +622,6 @@ html{scroll-behavior:smooth}
       <figcaption>Career to date. The shaded span marks work currently in progress.</figcaption>
     </figure>
 
-    <div class="plates">
-      <figure class="plate">
-        <div class="frame empty">
-          <img src="images/logo-amazon.png" alt="Amazon"
-               onerror="this.parentNode.classList.add('empty')"
-               onload="this.parentNode.classList.remove('empty')">
-          <span class="slot"><b>Amazon</b></span>
-        </div>
-        <figcaption>Amazon</figcaption>
-      </figure>
-      <figure class="plate">
-        <div class="frame empty">
-          <img src="images/logo-rkl.png" alt="RKL LLP"
-               onerror="this.parentNode.classList.add('empty')"
-               onload="this.parentNode.classList.remove('empty')">
-          <span class="slot"><b>RKL LLP</b></span>
-        </div>
-        <figcaption>RKL LLP</figcaption>
-      </figure>
-    </div>
-
     <h3 class="sub" id="amazon">Amazon &mdash; Operations Manager</h3>
     <p>Morey manages operations at an Amazon Robotics fulfillment center in Northeast Ohio. On a given day he is responsible for 250 to 400 associates, four salaried leaders, and twelve hourly leaders, across a schedule of four twelve-hour shifts per week.</p>
 
@@ -678,7 +644,7 @@ html{scroll-behavior:smooth}
     <h3 class="sub" id="analytics-in-operations">Analytics in operations</h3>
     <p>Much of Morey&rsquo;s technical work has been internal and unglamorous by design: recurring reports that used to be assembled by hand, reconciliations between systems that were never meant to talk to each other, and the slow migration of institutional knowledge out of individual workbooks and into shared, queryable tables.</p>
 
-    <p>The clearest illustration is a Smartsheet build that consolidated scattered operational metrics into a single real-time KPI view. It replaced a reporting cycle that had run on manual assembly, cutting the time to pull a current picture of the numbers from a scheduled report to on demand.<sup class="ref"><a href="#note-4" id="ref-4">[4]</a></sup> <span class="todo">[Add the real figure here &mdash; the percentage you cut pull time by, or hours returned per week. I am not going to put an invented number on your page.]</span></p>
+    <p>The clearest illustration is a Smartsheet build that consolidated scattered operational metrics into a single real-time KPI view. It replaced a reporting cycle that had run on manual assembly, cutting the time to pull a current picture of the numbers from a scheduled report to on demand.<sup class="ref"><a href="#note-4" id="ref-4">[4]</a></sup></p>
 
     <div class="callout">
       <b>Working principle</b>
@@ -695,42 +661,23 @@ html{scroll-behavior:smooth}
     <!-- ---------- EDUCATION ---------- -->
     <h2 class="sec" id="education">Education</h2>
 
-    <div class="plates">
-      <figure class="plate">
-        <div class="frame empty">
-          <img src="images/logo-desales.png" alt="DeSales University"
-               onerror="this.parentNode.classList.add('empty')"
-               onload="this.parentNode.classList.remove('empty')">
-          <span class="slot"><b>DeSales<br>University</b></span>
-        </div>
-        <figcaption>DeSales University</figcaption>
-      </figure>
-      <figure class="plate">
-        <div class="frame empty">
-          <img src="images/logo-gatech.png" alt="Georgia Institute of Technology"
-               onerror="this.parentNode.classList.add('empty')"
-               onload="this.parentNode.classList.remove('empty')">
-          <span class="slot"><b>Georgia<br>Tech</b></span>
-        </div>
-        <figcaption>Georgia Institute of Technology</figcaption>
-      </figure>
-    </div>
-
-    <figure class="thumb tall">
-      <div class="frame empty">
-        <img src="images/graduation.jpg" alt="Christian Morey at his DeSales University graduation"
-             onerror="this.parentNode.classList.add('empty')"
-             onload="this.parentNode.classList.remove('empty')">
-        <span class="slot"><code>images/graduation.jpg</code><em>A graduation photo, or any photo of you.</em></span>
-      </div>
-      <figcaption>DeSales University commencement, 2024.</figcaption>
-    </figure>
-
     <p>Morey holds a <strong>Bachelor of Science in Finance</strong> from <a href="https://www.desales.edu/" target="_blank" rel="noopener">DeSales University</a> in Center Valley, Pennsylvania, awarded in 2024. The finance grounding is why his analytics work has tended to start at the cost side of an operation rather than the modeling side.</p>
 
     <p>In Fall 2026 he began the <strong>Online Master of Science in Analytics</strong> at the Georgia Institute of Technology, a two-year program pursued alongside full-time work. His first term centers on <em>CSE 6040: Intro to Computing for Data Analysis</em>, a Python-based course covering numerical computing, data structures for analysis, and applied algorithms, assessed through autograded notebooks and proctored exams.<sup class="ref"><a href="#note-2" id="ref-2">[2]</a></sup></p>
 
     <p>The program offers three tracks &mdash; Analytical Tools, Business Analytics, and Computational Data Analytics &mdash; and Morey expects to settle on one as the core coursework progresses. The longer-term goal is a move from operations leadership into a full-time analytics role.</p>
+
+    <!-- ---------- ESPORTS ---------- -->
+    <h2 class="sec" id="esports">Collegiate Esports</h2>
+
+    <p>Morey competed on the <a href="https://athletics.desales.edu/sports/esports/roster/2023-24" target="_blank" rel="noopener">DeSales University varsity esports roster</a>, listed as a senior on the 2023&ndash;24 squad playing <em>Overwatch</em> in the tank and DPS roles.<sup class="ref"><a href="#note-5">[5]</a></sup></p>
+
+    <p>Tank is the shot-calling seat in <em>Overwatch</em>. The player in it commits first, sets the angle the rest of the team plays off, and decides which fights are worth taking &mdash; then owns the result when the read is wrong. It is a role about processing a fast, noisy situation and being accountable for the call, which has more in common with running a shift than the setting suggests.</p>
+
+    <h3 class="sub" id="esports-media">Content and media</h3>
+    <p>He runs <a href="https://www.youtube.com/@ZZZOverwatch" target="_blank" rel="noopener">ZZZ Overwatch</a>, a YouTube channel of roughly forty <em>Overwatch</em> videos published during his college years.</p>
+
+    <p>He was also interviewed on the <em>Stay Plugged In</em> esports podcast for an episode on scholastic competition, <a href="https://www.youtube.com/watch?v=wIcdK3N4eoo" target="_blank" rel="noopener">&ldquo;High School Esports ft. Christian Morey, Overwatch Player.&rdquo;</a><sup class="ref"><a href="#note-6" id="ref-6">[6]</a></sup></p>
 
     <!-- ---------- PROJECTS ---------- -->
     <h2 class="sec" id="projects">Projects</h2>
@@ -741,14 +688,6 @@ html{scroll-behavior:smooth}
       <h3 class="sub">Genealogical Record Linkage<span class="status">Ongoing</span></h3>
       <p>A personal research project tracing family lineage using the <em>gateway ancestor</em> strategy &mdash; identifying documented colonial-era immigrants with established descents into medieval nobility, then working to connect a line to one of them.</p>
       <p>Practically, it is an entity resolution problem. Names are spelled inconsistently across generations, dates are approximate, records are transcribed by hand from originals, and independent sources routinely disagree about the same person. Deciding that two records describe one individual &mdash; and being able to say why &mdash; is the same judgment that record matching demands in commercial data, learned here on a dataset where being wrong is cheap.</p>
-    </div>
-
-    <div class="proj">
-      <h3 class="sub"><span class="todo">[First public repository]</span></h3>
-      <p class="todo">[The most valuable thing you can add to this page. One end-to-end analysis with a readable README: the question, where the data came from, what you did to it, what it showed, and what you would do differently. It does not need to be sophisticated &mdash; a small, finished, honest project beats an ambitious unfinished one, and it is what moves this page from &ldquo;operations manager studying analytics&rdquo; to &ldquo;analyst.&rdquo; Your CSE 6040 coursework is a natural source once the term is underway.]</p>
-      <div class="linkrow">
-        <a href="https://github.com/christianmorey" target="_blank" rel="noopener">github.com/christianmorey</a>
-      </div>
     </div>
 
     <!-- ---------- SKILLS ---------- -->
@@ -778,21 +717,10 @@ html{scroll-behavior:smooth}
     <h2 class="sec" id="certifications">Certifications and Continuing Education</h2>
     <ul>
       <li><strong>M.S. Analytics</strong>, Georgia Institute of Technology &mdash; in progress, expected 2028</li>
-      <li class="todo">[Any certification with a verifiable completion record &mdash; Microsoft PL-300 for Power BI would sit naturally next to the dashboard work, and Six Sigma Green Belt next to the operations role. Delete this line if you have none yet; an empty list is better than a padded one.]</li>
     </ul>
 
     <!-- ---------- PERSONAL LIFE ---------- -->
     <h2 class="sec" id="personal-life">Personal Life</h2>
-    <figure class="thumb tall">
-      <div class="frame empty">
-        <img src="images/travel.jpg" alt="Christian Morey"
-             onerror="this.parentNode.classList.add('empty')"
-             onload="this.parentNode.classList.remove('empty')">
-        <span class="slot"><code>images/travel.jpg</code></span>
-      </div>
-      <figcaption>Morey in <span class="todo">[city]</span>, <span class="todo">[year]</span>.</figcaption>
-    </figure>
-
     <p>Morey lives in the Akron area of Summit County, Ohio.</p>
 
     <h3 class="sub" id="interests">Interests</h3>
@@ -831,6 +759,10 @@ html{scroll-behavior:smooth}
             <td><a href="https://www.linkedin.com/in/christianmoreyus/" target="_blank" rel="noopener">LinkedIn</a></td>
           </tr>
           <tr>
+            <th scope="row">Esports</th>
+            <td><a href="https://athletics.desales.edu/sports/esports/roster/2023-24" target="_blank" rel="noopener">DeSales roster</a> &middot; <a href="https://www.youtube.com/@ZZZOverwatch" target="_blank" rel="noopener">ZZZ Overwatch on YouTube</a></td>
+          </tr>
+          <tr>
             <th scope="row">Code</th>
             <td><a href="https://github.com/christianmorey" target="_blank" rel="noopener">GitHub profile</a> · <span>Pinned repositories &mdash; once the first project lands</span></td>
           </tr>
@@ -845,6 +777,8 @@ html{scroll-behavior:smooth}
       <li id="note-2">Georgia Institute of Technology, &ldquo;CSE 6040: Intro to Computing for Data Analysis,&rdquo; Fall 2026 course description. <a href="#ref-2">&#8593;</a></li>
       <li id="note-3">Headcount and leadership scope are typical daily figures and vary by shift and season. <a href="#ref-3">&#8593;</a></li>
       <li id="note-4">Self-reported. <a href="#ref-4">&#8593;</a></li>
+      <li id="note-5">DeSales University Athletics, &ldquo;Esports Roster, 2023&ndash;24.&rdquo; <a href="#ref-5">&#8593;</a></li>
+      <li id="note-6">Stay Plugged In, &ldquo;High School Esports ft. Christian Morey, Overwatch Player,&rdquo; SPINCast. <a href="#ref-6">&#8593;</a></li>
     </ol>
 
     <p class="disclaimer">No affiliation with wikipedia.org or the Wikimedia Foundation. This page is a personal portfolio presented in an encyclopedic format; it is a self-authored document, not a third-party reference work.</p>
@@ -855,22 +789,6 @@ html{scroll-behavior:smooth}
 <script>
 (function () {
   "use strict";
-
-  /* ---------- placeholder highlighting ---------- */
-  var body = document.body;
-  var litBtn = document.getElementById("lit");
-  var litN = document.getElementById("litN");
-  var todoCount = document.querySelectorAll(".todo").length;
-
-  function setLit(on) {
-    body.classList.toggle("todo-lit", on);
-    litBtn.setAttribute("aria-pressed", String(on));
-    litN.textContent = on ? todoCount + " to fill in" : "off";
-  }
-  setLit(true);
-  litBtn.addEventListener("click", function () {
-    setLit(!body.classList.contains("todo-lit"));
-  });
 
   /* ---------- table of contents scrollspy ---------- */
   var railLinks = Array.prototype.slice.call(
